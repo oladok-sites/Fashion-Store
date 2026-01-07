@@ -5,6 +5,7 @@ import { useClothes } from '@/contexts/ClothesContextProvider';
 import type { Clothe } from '@/contexts/ClothesContextProvider';
 import { useFavourites } from '@/contexts/FavouritesContextProvider';
 import Modal from 'react-modal';
+import Image from 'next/image';
 
 export default function Component() {
 	const { id } = useParams<{ id: string }>();
@@ -36,18 +37,18 @@ export default function Component() {
 		<>
 			{product.map((product) => (
 				<section className="flex items-center justify-center py-15 gap-25" key={product.id}>
-					<img
+					<Image
 						className="border border-[#d9d9d9]"
-						src={product.images.at(0)}
+						src={product.images[0]}
 						width={367}
 						height={438}
 						alt={product.title}
-						onClick={() => openModal(product.images.at(0))}
+						onClick={() => openModal(product.images[0])}
 					/>
 					{product.images.length !== 1 && (
 						<div className="flex flex-col gap-3">
 							{product.images.slice(1).map((image, index) => (
-								<img
+								<Image
 									key={index}
 									className="border border-[#d9d9d9]"
 									src={image}

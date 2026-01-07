@@ -54,7 +54,7 @@ export default function HomeNew() {
 					<>
 						<SwiperSlide key={clothe.id} className="w-76.25">
 							<div className="border border-black/40 mb-3.5 relative h-78.25">
-								<Image src={clothe.images.at(0)} alt={clothe.title} fill className="object-cover object-center" />
+								<Image src={clothe.images[0]} alt={clothe.title} fill className="object-cover object-center" />
 								<button
 									className="w-8.5 h-8.5 text-[#0c0c0c] bg-[#dcdcdc] absolute bottom-0 left-0 right-0 mx-auto"
 								>

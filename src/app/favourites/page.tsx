@@ -1,15 +1,15 @@
 'use client';
 
 import { useFavourites } from '@/contexts/FavouritesContextProvider';
-import { useClothes } from '@/contexts/ClothesContextProvider';
+import { Clothe, useClothes } from '@/contexts/ClothesContextProvider';
 import Link from 'next/link';
 import Image from 'next/image';
 
 export default function FavouritesClothes() {
-	const { favourites, hasFavourite, setFavouritesClothes } = useFavourites();
+	const { favourites, setFavouritesClothes } = useFavourites();
 	const clothes = useClothes();
 
-	const favouritesClothes = favourites.map((id) => clothes.find((item) => String(item.id) === id)).filter(Boolean);
+	const favouritesClothes = favourites.map((id) => clothes.find((item) => String(item.id) === id)).filter((item): item is Clothe => Boolean(item));
 
 	return (
 		<section className="flex justify-center py-15">
@@ -19,7 +19,7 @@ export default function FavouritesClothes() {
 						<div className="border border-black/40 mb-3.5 relative">
 							<Link href={`/products/${clothe.id}`}>
 								<Image
-									src={clothe.images.at(0)}
+									src={clothe.images[0]}
 									alt={clothe.title}
 									width={305}
 									height={313}

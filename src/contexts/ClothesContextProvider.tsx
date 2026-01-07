@@ -1,19 +1,7 @@
-// app/providers.tsx
 'use client';
 
 import { createContext, useContext } from 'react';
 
-// export type Clothe = {
-// 	id: number;
-// 	title: string;
-// 	description: string;
-// 	price: number;
-// 	images: string[];
-// 	category: {
-// 		name: string;
-// 		slug: string;
-// 	}
-// };
 export type Clothe = {
 	id: number;
 	title: string;

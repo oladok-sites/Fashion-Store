@@ -24,8 +24,8 @@ export default async function RootLayout({
 }: Readonly<{
 	children: React.ReactNode;
 }>) {
-	const res = await fetch('http://localhost:3000/api/products');
-	const clothes = await res.json();
+	// const res = await fetch('http://localhost:3000/api/products');
+	// const clothes = await res.json();
 	const clothesDBf = await getProducts();
 	const clothesDB: Clothe[] = clothesDBf.map((c: any) => ({
 		...c,

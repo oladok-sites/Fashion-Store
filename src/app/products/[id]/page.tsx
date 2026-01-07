@@ -40,11 +40,11 @@ export default function Component() {
 				<section className="flex flex-col lg:flex-row items-center justify-center py-15 gap-10 lg:gap-25" key={product.id}>
 					<img
 						className="border border-[#d9d9d9]"
-						src={product.images.at(0)}
+						src={product.images[0]}
 						width={367}
 						height={438}
 						alt={product.title}
-						onClick={() => openModal(product.images.at(0))}
+						onClick={() => openModal(product.images[0])}
 					/>
 					{product.images.length !== 1 && (
 						<div className="flex flex-row lg:flex-col gap-3">

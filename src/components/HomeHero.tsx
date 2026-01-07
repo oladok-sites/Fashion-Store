@@ -65,7 +65,7 @@ export default function HomeHero() {
 										<Link key={product.id} href={`products/${product.id}`}>
 											<li className="flex justify-between items-center p-4 hover:bg-black/5 cursor-pointer transition">
 												<p>{product.title}</p>
-												<Image src={product.images.at(0)} width={20} height={30} alt={product.title} />
+												<Image src={product.images[0]} width={20} height={30} alt={product.title} />
 											</li>
 										</Link>
 									))
@@ -134,7 +134,7 @@ export default function HomeHero() {
 							<SwiperSlide key={index} className="">
 								<div className="border border-black/40 mb-3.5 relative max-w-42 w-full h-43.25 lg:max-w-none lg:w-91.5 lg:h-91.75">
 									<Image
-										src={clothe.images.at(0)}
+										src={clothe.images[0]}
 										alt={clothe.title}
 										// width={366}
 										// height={367}
