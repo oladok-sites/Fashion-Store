@@ -36,7 +36,7 @@ Before you begin, ensure you have the following installed on your system:
 ### 1. Clone the Repository
 
 ```bash
-git clone <your-repository-url>
+git clone https://github.com/oladok-sites/Fashion-Store.git
 cd fashion-store
 ```
 
@@ -243,11 +243,30 @@ npm run dev -- -p 3001
 
 ## 📄 License
 
-This project is private and proprietary.
+This project is licensed under the **Creative Commons Attribution-NonCommercial 4.0 International License** (CC BY-NC 4.0).
+
+This means you are free to:
+
+-   **Share** — copy and redistribute the material in any medium or format
+-   **Adapt** — remix, transform, and build upon the material
+
+Under the following terms:
+
+-   **Attribution** — You must give appropriate credit to the author (oladok-sites), provide a link to the license, and indicate if changes were made.
+-   **NonCommercial** — You may not use the material for commercial purposes.
+
+For more information, see the [LICENSE](LICENSE) file or visit [Creative Commons](https://creativecommons.org/licenses/by-nc/4.0/).
 
 ## 🤝 Contributing
 
 This is a private project. For questions or issues, please contact the project maintainer.
+
+## 👤 Author
+
+**oladok-sites**
+
+-   GitHub: [@oladok-sites](https://github.com/oladok-sites)
+-   Repository: [Fashion-Store](https://github.com/oladok-sites/Fashion-Store)
 
 ---
 
