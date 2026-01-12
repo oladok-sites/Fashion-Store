@@ -4,11 +4,8 @@ import './globals.css';
 import { Newsreader } from 'next/font/google';
 import Footer from '@/components/Footer';
 import { ClerkProvider } from '@clerk/nextjs';
-import { ClothesProvider } from '@/contexts/ClothesContextProvider';
 import { FavouritesProvider } from '@/contexts/FavouritesContextProvider';
 import { CartProvider } from '@/contexts/CartContextProvider';
-import { getProducts } from '@/prisma-db';
-import type { Clothe } from '@/contexts/ClothesContextProvider';
 
 const newsreader = Newsreader({
 	subsets: ['latin'],
@@ -24,33 +21,22 @@ export default async function RootLayout({
 }: Readonly<{
 	children: React.ReactNode;
 }>) {
-	// const res = await fetch('http://localhost:3000/api/products');
-	// const clothes = await res.json();
-	const clothesDBf = await getProducts();
-	const clothesDB: Clothe[] = clothesDBf.map((c: any) => ({
-		...c,
-		images: c.images ? JSON.parse(c.images) : []
-	}))
-	console.log(clothesDB)
-
 	return (
 		<ClerkProvider>
 			<html lang="en" className="scroll-smooth">
-				<ClothesProvider clothes={clothesDB}>
-					<FavouritesProvider>
-						<CartProvider>
-							<body
-								className={`${newsreader.className} min-h-screen flex flex-col bg-[url('/body-bg.png')] font-medium text-[16px]`}
-							>
-								<Header />
-								<main className="flex-1 w-full">
-									<div className="max-w-330 mx-auto px-5">{children}</div>
-								</main>
-								<Footer />
-							</body>
-						</CartProvider>
-					</FavouritesProvider>
-				</ClothesProvider>
+				<FavouritesProvider>
+					<CartProvider>
+						<body
+							className={`${newsreader.className} min-h-screen flex flex-col bg-[url('/body-bg.png')] font-medium text-[16px]`}
+						>
+							<Header />
+							<main className="flex-1 w-full">
+								<div className="max-w-330 mx-auto px-5">{children}</div>
+							</main>
+							<Footer />
+						</body>
+					</CartProvider>
+				</FavouritesProvider>
 			</html>
 		</ClerkProvider>
 	);

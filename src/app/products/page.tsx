@@ -1,10 +1,13 @@
 import ProductsComponent from '@/components/Products';
+import { getProducts } from '@/prisma-db';
 import { Suspense } from 'react';
 
-export default function ProductsPage() {
+export default async function ProductsPage() {
+	const products = await getProducts()
+
 	return (
 		<Suspense fallback={<div>Loading products...</div>}>
-			<ProductsComponent />
+			<ProductsComponent products={products} />
 		</Suspense>
 	);
 }

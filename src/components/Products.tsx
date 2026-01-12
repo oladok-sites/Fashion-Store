@@ -1,44 +1,39 @@
 'use client';
 import { useState } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
-import { useClothes } from '@/contexts/ClothesContextProvider';
 import { useFavourites } from '@/contexts/FavouritesContextProvider';
 import { useCart } from '@/contexts/CartContextProvider';
 import Image from 'next/image';
 import Link from 'next/link';
 import Search from '../assets/search.svg';
+import { Product } from '../../types/types';
 
-export default function ProductsComponent() {
+export default function ProductsComponent({ products }: { products: Product[] }) {
 	const searchParams = useSearchParams();
 	const category = searchParams.get('cat');
-	console.log(category);
 	const router = useRouter();
 
-	const clothes = useClothes();
-	const { hasFavourite, setFavouritesClothes } = useFavourites();
-	const { hasCart, setCartClothes } = useCart();
+	const { hasFavourite, setFavouritesProducts } = useFavourites();
+	const { hasCart, setCartProducts } = useCart();
 
 	const [searchInputQuery, setSearchInputQuery] = useState('');
 
-	const searchClothes = searchInputQuery
-		? clothes.filter((clothe) => clothe.title.toLowerCase().includes(searchInputQuery.toLowerCase()))
-		: clothes;
+	const searchProducts = searchInputQuery
+		? products.filter((product) => product.title.toLowerCase().includes(searchInputQuery.toLowerCase()))
+		: products;
 
-	const queryClothes = category ? searchClothes.filter((clothe) => clothe.category.includes(category)) : searchClothes;
+	const queryProducts = category ? searchProducts.filter((product) => product.category.includes(category)) : searchProducts;
 
 	const deleteCatQuery = () => {
 		const params = new URLSearchParams(searchParams.toString());
 		if (params.size === 0) return;
-		console.log(params);
 		params.delete('cat');
 
 		router.replace(`${window.location.pathname}?${params.toString()}`);
-		console.log(`${window.location.pathname}?${params.toString()}`);
 	};
 
 	return (
 		<section className="flex justify-center py-8 lg:py-15">
-			{/* <aside className="max-w-66.5"></aside> */}
 			<div className="flex flex-col justify-center items-center sm:block max-w-219 w-full">
 				<h2 className="font-bold text-[20px] tracking-[0.05em] uppercase mb-3.5">products</h2>
 				<div className="flex flex-col sm:flex-row items-center gap-10 mb-10">
@@ -91,42 +86,42 @@ export default function ProductsComponent() {
 					</div>
 				</div>
 				<div className="flex flex-col items-center sm:grid sm:grid-cols-2 md:grid-cols-3 gap-10 w-full">
-					{queryClothes.map((clothe) => (
-						<div className="max-w-76.25 w-full" key={clothe.id}>
+					{queryProducts.map((product) => (
+						<div className="max-w-76.25 w-full" key={product.id}>
 							<div className="border border-black/40 mb-3.5 relative h-78.25">
-								<Link href={`/products/${clothe.id}`}>
-									<Image src={clothe.images[0]} alt={clothe.title} fill className="object-cover" />
+								<Link href={`/products/${product.id}`}>
+									<Image src={product.images[0]} alt={product.title} fill className="object-cover" loading='lazy' />
 								</Link>
 								<div className="flex justify-center gap-2.5 absolute bottom-2.5 left-0 right-0">
 									<button
 										className={`w-8.5 h-8.5 text-[#0c0c0c] bg-[#dcdcdc] hover:text-[#0c0c0c]/80 hover:bg-[#dcdcdc]/80 component-transition ${
-											hasCart(String(clothe.id)) ? 'bg-[#d9d9d9]/80 cursor-not-allowed' : 'bg-[#d9d9d9]'
+											hasCart(String(product.id)) ? 'bg-[#d9d9d9]/80 cursor-not-allowed' : 'bg-[#d9d9d9]'
 										}`}
-										onClick={() => setCartClothes(String(clothe.id))}
-										disabled={hasCart(String(clothe.id))}
+										onClick={() => setCartProducts(String(product.id))}
+										disabled={hasCart(String(product.id))}
 									>
 										+
 									</button>
 									<button
 										className={`flex items-center justify-center uppercase text-[12px] w-8.5 h-8.5 hover:bg-[#d9d9d9]/80 group component-transition ${
-											hasFavourite(String(clothe.id)) ? 'bg-[#d9d9d9]/80 cursor-not-allowed' : 'bg-[#d9d9d9]'
+											hasFavourite(String(product.id)) ? 'bg-[#d9d9d9]/80 cursor-not-allowed' : 'bg-[#d9d9d9]'
 										}`}
-										onClick={() => setFavouritesClothes(String(clothe.id))}
-										disabled={hasFavourite(String(clothe.id))}
+										onClick={() => setFavouritesProducts(String(product.id))}
+										disabled={hasFavourite(String(product.id))}
 									>
 										<div
 											className={`mask-[url("@/assets/favourites.svg")] mask-center mask-no-repeat mask-contain w-4 h-4 group-hover:bg-black/80 component-transition ${
-												hasFavourite(String(clothe.id)) ? 'bg-black/80' : 'bg-black'
+												hasFavourite(String(product.id)) ? 'bg-black/80' : 'bg-black'
 											}`}
 										></div>
 									</button>
 								</div>
 							</div>
 							<div className="flex justify-between text-[14px] px-2.5">
-								<Link href={`/products/${clothe.id}`} className="hover:text-black/60 component-transition">
-									{clothe.title}
+								<Link href={`/products/${product.id}`} className="hover:text-black/60 component-transition">
+									{product.title}
 								</Link>
-								<p className="text-[20px] font-semibold">{clothe.price}$</p>
+								<p className="text-[20px] font-semibold">{product.price}$</p>
 							</div>
 						</div>
 					))}

@@ -1,18 +1,15 @@
 'use client';
+
 import { useState, useEffect } from 'react';
-import { useParams } from 'next/navigation';
-import { useClothes } from '@/contexts/ClothesContextProvider';
-import type { Clothe } from '@/contexts/ClothesContextProvider';
 import { useFavourites } from '@/contexts/FavouritesContextProvider';
+import { useCart } from '@/contexts/CartContextProvider';
 import Modal from 'react-modal';
 import Image from 'next/image';
+import { Product } from '../../types/types';
 
-export default function Component() {
-	const { id } = useParams<{ id: string }>();
-	const clothes = useClothes();
-	const product: Clothe[] = clothes.filter((clothe) => clothe.id.toString() === id);
-
-	const { hasFavourite, setFavouritesClothes } = useFavourites();
+export default function ProductById({ product }: { product: Product }) {
+	const { hasFavourite, setFavouritesProducts } = useFavourites();
+	const { hasCart, setCartProducts } = useCart();
 
 	const [expanded, setExpanded] = useState(false);
 
@@ -35,8 +32,7 @@ export default function Component() {
 
 	return (
 		<>
-			{product.map((product) => (
-				<section className="flex items-center justify-center py-15 gap-25" key={product.id}>
+			<section className="flex flex-col lg:flex-row items-center justify-center py-15 gap-10 lg:gap-25" key={product.id}>
 					<Image
 						className="border border-[#d9d9d9]"
 						src={product.images[0]}
@@ -46,7 +42,7 @@ export default function Component() {
 						onClick={() => openModal(product.images[0])}
 					/>
 					{product.images.length !== 1 && (
-						<div className="flex flex-col gap-3">
+						<div className="flex flex-row lg:flex-col gap-3">
 							{product.images.slice(1).map((image, index) => (
 								<Image
 									key={index}
@@ -64,22 +60,23 @@ export default function Component() {
 						<h1 className="mb-2">{product.title}</h1>
 						<p className="text-[20px] font-semibold mb-10">{product.price}$</p>
 						<div className="mb-12.5">
-							<p className={`text-[12px] tracking-[0.08em] ${expanded ? '' : 'line-clamp-3'}`}>{product.description}</p>
+							<p className={`text-[12px] tracking-[0.08em] ${expanded ? '' : 'line-clamp-2'}`}>{product.description}</p>
 							<button onClick={() => setExpanded((prev) => !prev)} className="text-sm text-blue-600 hover:underline mt-1">
 								{expanded ? 'Show less' : 'Show more'}
 							</button>
 						</div>
 						<div className="flex">
 							<button
-								className={`uppercase text-[12px] bg-[#d9d9d9] h-10 leading-10 mr-1.5 hover:bg-[#d9d9d9]/60 hover:text-black/60 component-transition ${
+								className={`uppercase text-[12px] h-10 leading-10 mr-1.5 hover:bg-[#d9d9d9]/60 hover:text-black/60 component-transition ${
 									hasFavourite(String(product.id)) ? 'px-12' : 'px-17'
-								}`}
+								} ${hasCart(String(product.id)) ? 'bg-[#d9d9d9]/60 text-black/60 cursor-not-allowed' : 'bg-[#d9d9d9]'}`}
+								onClick={() => setCartProducts(String(product.id))}
 							>
 								add
 							</button>
 							<button
 								className="uppercase text-[12px] bg-[#d9d9d9] h-10 leading-10 px-5 hover:bg-[#d9d9d9]/60 hover:text-[#0c0c0c]/60 group component-transition"
-								onClick={() => setFavouritesClothes(id)}
+								onClick={() => setFavouritesProducts(String(product.id))}
 							>
 								{hasFavourite(String(product.id)) ? (
 									<p>remove</p>
@@ -90,7 +87,6 @@ export default function Component() {
 						</div>
 					</div>
 				</section>
-			))}
 			<Modal
 				isOpen={isOpen}
 				onRequestClose={closeModal}

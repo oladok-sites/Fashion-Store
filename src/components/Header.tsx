@@ -5,7 +5,7 @@ import Logo from '../assets/Shop-logo.svg';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
-import { SignedIn, SignedOut, SignInButton, SignOutButton, UserButton, UserProfile } from '@clerk/nextjs';
+import { SignedIn, SignedOut, SignInButton, SignOutButton, UserButton } from '@clerk/nextjs';
 // import { useState } from 'react';
 import Modal from 'react-modal';
 

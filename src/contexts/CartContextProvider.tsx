@@ -4,7 +4,7 @@ import { createContext, useContext, useState, useEffect } from 'react';
 
 type CartFavouritesContextType = {
 	cart: string[];
-	setCartClothes: (slug: string) => void;
+	setCartProducts: (slug: string) => void;
 	hasCart: (slug: string) => boolean;
 };
 
@@ -25,13 +25,13 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
 		localStorage.setItem('cart', JSON.stringify(cart));
 	}, [cart, mounted]);
 
-	const setCartClothes = (slug: string) => {
+	const setCartProducts = (slug: string) => {
 		setCart((prev) => prev.includes(slug) ? prev.filter((item) => item !== slug) : [...prev, slug]);
 	};
 
 	const hasCart = (slug: string) => cart.includes(slug);
 
-	return <CartContext.Provider value={{ cart, setCartClothes, hasCart }}>{children}</CartContext.Provider>;
+	return <CartContext.Provider value={{ cart, setCartProducts, hasCart }}>{children}</CartContext.Provider>;
 };
 
 export const useCart = () => {

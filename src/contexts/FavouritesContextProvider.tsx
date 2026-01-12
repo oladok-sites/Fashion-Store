@@ -4,7 +4,7 @@ import { createContext, useContext, useState, useEffect } from 'react';
 
 type FavouritesContextType = {
 	favourites: string[];
-	setFavouritesClothes: (slug: string) => void;
+	setFavouritesProducts: (slug: string) => void;
 	hasFavourite: (slug: string) => boolean;
 };
 
@@ -25,13 +25,13 @@ export const FavouritesProvider = ({ children }: { children: React.ReactNode }) 
 		localStorage.setItem('favourites', JSON.stringify(favourites));
 	}, [favourites, mounted]);
 
-	const setFavouritesClothes = (slug: string) => {
+	const setFavouritesProducts = (slug: string) => {
 		setFavourites((prev) => prev.includes(slug) ? prev.filter((item) => item !== slug) : [...prev, slug]);
 	};
 
 	const hasFavourite = (slug: string) => favourites.includes(slug);
 
-	return <FavouritesContext.Provider value={{ favourites, setFavouritesClothes, hasFavourite }}>{children}</FavouritesContext.Provider>;
+	return <FavouritesContext.Provider value={{ favourites, setFavouritesProducts, hasFavourite }}>{children}</FavouritesContext.Provider>;
 };
 
 export const useFavourites = () => {

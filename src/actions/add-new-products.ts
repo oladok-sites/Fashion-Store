@@ -11,5 +11,4 @@ export default async function addNewProduct(formData: FormData) {
 	const images = formData.get('images') as string;
 
 	await addProduct(title, parseInt(price), description, category, JSON.stringify([images]));
-	console.log('priveeeeet from addNewProduct');
 }
