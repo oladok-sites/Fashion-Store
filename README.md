@@ -52,18 +52,17 @@ pnpm install
 
 ### 3. Set Up Environment Variables
 
+Create a `.env` file in the root directory of the project:
+
+```bash
+DATABASE_URL="postgresql://johndoe:randompassword@localhost:5432/mydb?schema=public"
+```
+
 Create a `.env.local` file in the root directory of the project:
 
 ```bash
-# Clerk Authentication
-NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=your_clerk_publishable_key
-CLERK_SECRET_KEY=your_clerk_secret_key
-
-# Optional: Clerk URLs (if using custom domains)
-NEXT_PUBLIC_CLERK_SIGN_IN_URL=/sign-in
-NEXT_PUBLIC_CLERK_SIGN_UP_URL=/sign-up
-NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL=/
-NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL=/
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_aW52aXRpbmctY2hpcG11bmstNDcuY2xlcmsuYWNjb3VudHMuZGV2JA
+CLERK_SECRET_KEY=sk_test_iGj6hdxE0KNfpJ6EpzcGCfUSeYNdJrYdq4WvJrqn91
 ```
 
 **Getting Clerk Keys:**
